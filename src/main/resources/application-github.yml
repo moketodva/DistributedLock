@@ -1,0 +1,8 @@
+
+spring:
+  redis:
+    password: # 有密码配密码
+    cluster:
+      nodes: # 节点地址
+      max-redirects: 3
+    timeout: 5000ms
