@@ -8,6 +8,8 @@ import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.UUID;
 
@@ -60,8 +62,13 @@ public class RedisLock implements Lock {
 
     @Override
     public void unLock() {
+        LocalDateTime start = LocalDateTime.now();
         while(!tryUnLock()){
-
+            LocalDateTime end = LocalDateTime.now();
+            long between = Duration.between(start, end).toMillis();
+            if(between > 1000 * 1){
+                break;
+            }
         }
     }
 }
